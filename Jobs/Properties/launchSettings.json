@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Invoice.Api.Jobs": {
+      "commandName": "Project",
+      "commandLineArgs": "JobType=1"
+    }
+  }
+}

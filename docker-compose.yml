@@ -1,0 +1,98 @@
+version: '3.4'
+name: my-project-name
+
+services:
+  userapp:
+    image: ${DOCKER_REGISTRY-}userapp
+    build:
+      context: .
+      dockerfile: UserApp/Dockerfile
+    ports:
+      - "8000:80"
+      - "8010:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - E:\\Moje dokumenty\\Shop\\Files:/var/files
+      - C:\\certs:/app/clientcertificate/  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=YOUR_CERT_PASSWORD
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/clientcertificate/localhost.pfx 
+      - ASPNETCORE_HTTP_PORTS=8000
+      - ASPNETCORE_HTTPS_PORTS=8010
+
+
+  basketapp:
+    image: ${DOCKER_REGISTRY-}basketapp
+    build:
+      context: .
+      dockerfile: BasketApp/Dockerfile
+    ports:
+      - "8001:80"
+      - "8011:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - E:\\Moje dokumenty\\Shop\\Files:/var/files
+      - C:\\certs:/app/clientcertificate/  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=YOUR_CERT_PASSWORD
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/clientcertificate/localhost.pfx 
+      - ASPNETCORE_HTTP_PORTS=8001
+      - ASPNETCORE_HTTPS_PORTS=8011
+
+  
+
+  
+
+  productapp:
+    image: ${DOCKER_REGISTRY-}productapp
+    build:
+      context: .
+      dockerfile: ProductApp/Dockerfile
+    ports:
+      - "8002:80"
+      - "8012:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - E:\\Moje dokumenty\\Shop\\Files:/var/files
+      - C:\\certs:/app/clientcertificate/  
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=YOUR_CERT_PASSWORD
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/clientcertificate/localhost.pfx 
+      - ASPNETCORE_HTTP_PORTS=8002
+      - ASPNETCORE_HTTPS_PORTS=8012
+
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - rabbitmqdata:/var/log/rabbitmq
+    hostname: "rabbitmq"
+
+
+  productappgrpc:
+    image: ${DOCKER_REGISTRY-}productappgrpc
+    container_name: products-grpc
+    build:
+      context: .
+      dockerfile: ProductAppGrpc/Dockerfile
+    ports:
+        - 8003:80
+        - 8013:443
+
+volumes:
+  rabbitmqdata:
+  
+

@@ -1,0 +1,5 @@
+obj\Debug\net8.0/Category.cs \
+obj\Debug\net8.0/CategoryGrpc.cs: C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.62.0/build/native/include/google/protobuf/empty.proto\
+ C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.62.0/build/native/include/google/protobuf/timestamp.proto\
+ C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.62.0/build/native/include/google/protobuf/wrappers.proto\
+ ../ProductAppGrpc/Protos/category.proto

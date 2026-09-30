@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>58689192-7ba6-45af-8dbd-b0a020cd8fdd</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Google.Protobuf" Version="3.25.3" />
+	  <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+	  <PackageReference Include="Grpc.Net.Client" Version="2.61.0" />
+	  <PackageReference Include="Grpc.Tools" Version="2.62.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	<PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\ProductAppGrpc\Protos\category.proto" GrpcServices="Client">
+      <Link>Protos\category.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\ProductAppGrpc\Protos\discount.proto" GrpcServices="Client">
+      <Link>Protos\discount.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\ProductAppGrpc\Protos\producer.proto" GrpcServices="Client">
+      <Link>Protos\producer.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\ProductAppGrpc\Protos\product.proto" GrpcServices="Client">
+      <Link>Protos\product.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+</Project>

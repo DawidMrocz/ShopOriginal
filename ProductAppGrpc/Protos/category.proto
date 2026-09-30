@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductAppGrpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package category;
+
+// The product service definition.
+service Category {
+  rpc Create (CategoryCreateRequest) returns (CategoryCreateReply);
+  rpc Delete (CategoryDeleteRequest) returns (google.protobuf.Empty);
+  rpc Get (CategoryGetRequest) returns (CategoryGetReply);
+  rpc GetList (google.protobuf.Empty) returns (CategoryGetListReply);
+}
+
+message CategoryBaseRecord {
+  int32 Id = 1;
+  google.protobuf.Timestamp Created = 2;
+  int32 CreatedById = 3;
+  google.protobuf.Timestamp Updated = 4;
+  google.protobuf.Int32Value UpdatedById = 5;
+}
+
+// The request message containing the user's name.
+message CategoryCreateRequest {
+  string name = 1;
+}
+
+message CategoryDeleteRequest {
+  int32 categoryId = 1;
+}
+
+message CategoryGetRequest {
+  int32 categoryId = 1;
+}
+
+message CategoryGetReply {
+  CategoryBaseRecord baseRecords = 1;
+  string name = 2;
+}
+
+message CategoryGetListReply {
+  repeated CategoryGetReply categories = 1;
+}
+
+message CategoryCreateReply {
+  int32 categoryId = 1;
+}

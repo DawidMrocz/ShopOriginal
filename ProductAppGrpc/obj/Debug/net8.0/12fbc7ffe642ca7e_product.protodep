@@ -1,0 +1,5 @@
+obj\Debug\net8.0\Protos/Product.cs \
+obj\Debug\net8.0\Protos/ProductGrpc.cs: C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.57.0/build/native/include/google/protobuf/empty.proto\
+ C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.57.0/build/native/include/google/protobuf/timestamp.proto\
+ C:/Users/dawid.mroczkowski/.nuget/packages/grpc.tools/2.57.0/build/native/include/google/protobuf/wrappers.proto\
+ Protos/product.proto

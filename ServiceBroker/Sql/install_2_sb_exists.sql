@@ -1,0 +1,12 @@
+﻿-- uruchom jeśli na dowolnej bazie w danym serwerze istnieje już zaistalowany sb
+
+ALTER DATABASE [TU NAZWA BAZY]
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+GO
+
+ALTER DATABASE [TU NAZWA BAZY] SET NEW_BROKER;
+
+ALTER DATABASE [TU NAZWA BAZY]
+SET MULTI_USER;
+GO

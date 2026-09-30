@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductAppGrpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package producer;
+
+// The product service definition.
+service Producer {
+  rpc Create (ProducerCreateRequest) returns (ProducerCreateReply);
+  rpc Delete (ProducerDeleteRequest) returns (google.protobuf.Empty);
+  rpc Get (ProducerGetRequest) returns (ProducerGetReply);
+  rpc GetList (google.protobuf.Empty) returns (ProducerGetListReply);
+}
+
+message ProducerBaseRecord {
+  int32 Id = 1;
+  google.protobuf.Timestamp Created = 2;
+  int32 CreatedById = 3;
+  google.protobuf.Timestamp Updated = 4;
+  google.protobuf.Int32Value UpdatedById = 5;
+}
+
+// The request message containing the user's name.
+message ProducerCreateRequest {
+  string name = 1;
+  bytes logo = 2;
+  string logoName = 3;
+}
+
+message ProducerDeleteRequest {
+  int32 producerId = 1;
+}
+
+message ProducerGetRequest {
+  int32 producerId = 1; 
+}
+
+message ProducerGetReply {
+  ProducerBaseRecord baseRecords = 1;
+  string name = 2;
+  bytes logo = 3;
+  string logoName = 4;
+}
+
+message ProducerGetListReply {
+  repeated ProducerGetReply producers = 1;
+}
+
+message ProducerCreateReply {
+  int32 producerId = 1;
+}

@@ -1,0 +1,183 @@
+name: dockercompose11948575190516612676
+services:
+  basketapp:
+    build:
+      context: E:\Moje dokumenty\_publish\ShopOriginal
+      dockerfile: BasketApp/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8001"
+      ASPNETCORE_HTTPS_PORTS: "8011"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: YOUR_CERT_PASSWORD
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/clientcertificate/localhost.pfx
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: basketapp
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8001"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8011"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: E:\\Moje dokumenty\\Shop\\Files
+        target: /var/files
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\\certs
+        target: /app/clientcertificate
+        bind:
+          create_host_path: true
+  productapp:
+    build:
+      context: E:\Moje dokumenty\_publish\ShopOriginal
+      dockerfile: ProductApp/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8002"
+      ASPNETCORE_HTTPS_PORTS: "8012"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: YOUR_CERT_PASSWORD
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/clientcertificate/localhost.pfx
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: productapp
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8002"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8012"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: E:\\Moje dokumenty\\Shop\\Files
+        target: /var/files
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\\certs
+        target: /app/clientcertificate
+        bind:
+          create_host_path: true
+  productappgrpc:
+    build:
+      context: E:\Moje dokumenty\_publish\ShopOriginal
+      dockerfile: ProductAppGrpc/Dockerfile
+    container_name: products-grpc
+    image: productappgrpc
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8003"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8013"
+        protocol: tcp
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq:management
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5672
+        published: "5672"
+        protocol: tcp
+      - mode: ingress
+        target: 15672
+        published: "15672"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: rabbitmqdata
+        target: /var/log/rabbitmq
+        volume: {}
+  userapp:
+    build:
+      context: E:\Moje dokumenty\_publish\ShopOriginal
+      dockerfile: UserApp/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8000"
+      ASPNETCORE_HTTPS_PORTS: "8010"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: YOUR_CERT_PASSWORD
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/clientcertificate/localhost.pfx
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: userapp
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8000"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8010"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\dawid.mroczkowski\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: E:\\Moje dokumenty\\Shop\\Files
+        target: /var/files
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\\certs
+        target: /app/clientcertificate
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose11948575190516612676_default
+volumes:
+  rabbitmqdata:
+    name: dockercompose11948575190516612676_rabbitmqdata

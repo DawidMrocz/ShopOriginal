@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductAppGrpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package product;
+
+// The product service definition.
+service Product {
+  rpc Create (ProductCreateRequest) returns (ProductCreateReply);
+  rpc Update (ProductUpdateRequest) returns (google.protobuf.Empty);
+  rpc Delete (ProductDeleteRequest) returns (google.protobuf.Empty);
+  rpc Get (ProductGetRequest) returns (ProductGetReply);
+  rpc Search (ProductSearchRequest) returns (ProductGetListReply);
+  rpc ChangeQuantity (ProductChangeQuantityRequest) returns (google.protobuf.Empty);
+}
+
+message ProductBaseRecord {
+  int32 Id = 1;
+  google.protobuf.Timestamp Created = 2;
+  int32 CreatedById = 3;
+  google.protobuf.Timestamp Updated = 4;
+  google.protobuf.Int32Value UpdatedById = 5;
+}
+
+message ProductCreateRequest {
+  string name = 1;
+  int32 quantity = 2;
+  google.protobuf.StringValue description = 3;
+  int64 price = 4;
+  int32 producerId = 5;
+  repeated int64 categoryId = 6;
+  bytes photo = 7;
+  string photoName = 8;
+}
+
+message ProductChangeQuantityRequest {
+  int32 productId = 1;
+  int32 quantity = 2;
+}
+
+message ProductUpdateRequest {
+  ProductCreateRequest request = 1;
+  int32 productId = 2;
+}
+
+message ProductDeleteRequest {
+  int32 productId = 1;
+}
+
+message ProductGetRequest {
+  int32 productId = 1; 
+  double currencyRate = 2;
+}
+
+message ProductSearchRequest {
+  google.protobuf.Int32Value page = 1; 
+  google.protobuf.Int32Value pageSize = 2; 
+  google.protobuf.Int32Value SortOrder = 31; 
+  google.protobuf.StringValue SortBy = 4; 
+  google.protobuf.StringValue name = 5;
+  google.protobuf.Int64Value priceFrom = 6;
+  google.protobuf.Int64Value priceTo = 7;
+  double currencyRate = 8;
+}
+
+message ProductProducer {
+  ProductBaseRecord baseRecords = 1;
+  string name = 2;
+  bytes logo = 3;
+  string logoName = 4;
+}
+
+message ProductCategory {
+  ProductBaseRecord baseRecords = 1;
+  string name = 2;
+}
+
+message ProductGetReply {
+  ProductBaseRecord baseRecords = 1;
+  string name = 2;
+  int32 quantity = 3;
+  google.protobuf.StringValue description = 4;
+  int64 price = 5;
+  bool isAvailable = 6;
+  ProductProducer producer = 7;
+  repeated ProductCategory categories = 8;
+  bytes photo = 9;
+  string photoName = 10;
+}
+
+message ProductGetListReply {
+  repeated ProductGetReply products = 1;
+}
+
+message ProductCreateReply {
+  int32 productId = 1;
+}

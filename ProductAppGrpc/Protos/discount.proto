@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option csharp_namespace = "ProductAppGrpc";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+package discount;
+
+// The product service definition.
+service Discount {
+  rpc Create (DiscountCreateRequest) returns (DiscountCreateReply);
+  rpc Delete (DiscountDeleteRequest) returns (google.protobuf.Empty);
+  rpc Get (DiscountGetRequest) returns (DiscountGetReply);
+  rpc GetList (google.protobuf.Empty) returns (DiscountGetListReply);
+}
+
+message DiscountBaseRecord {
+  int32 Id = 1;
+  google.protobuf.Timestamp Created = 2;
+  int32 CreatedById = 3;
+  google.protobuf.Timestamp Updated = 4;
+  google.protobuf.Int32Value UpdatedById = 5;
+}
+
+// The request message containing the user's name.
+
+message DiscountCreateRequestProductIds {
+  int32 productId = 1;
+}
+message DiscountCreateRequest {
+  google.protobuf.StringValue code = 1;
+  int64 percentage = 2;
+  google.protobuf.Timestamp validFrom = 3;
+  google.protobuf.Timestamp validTo = 4;
+  repeated DiscountCreateRequestProductIds products = 5;
+}
+
+
+
+message DiscountDeleteRequest {
+  int32 discountId = 1;
+}
+
+
+
+message DiscountGetRequest {
+  int32 discountId = 1;
+}
+
+
+
+message DiscountGetProductReply {
+  DiscountBaseRecord baseRecords = 1;
+  int32 productId = 2;
+  string productName = 3;
+}
+
+
+message DiscountGetReply {
+  DiscountBaseRecord baseRecords = 1;
+   google.protobuf.StringValue code = 2;
+  int64 percentage = 3;
+  repeated DiscountGetProductReply products = 4;
+  google.protobuf.Timestamp validFrom = 5;
+  google.protobuf.Timestamp validTo = 6;
+}
+
+
+
+message DiscountGetListReply {
+  repeated DiscountGetReply discounts = 1;
+}
+
+
+message DiscountCreateReply {
+  int32 discountId = 1;
+}

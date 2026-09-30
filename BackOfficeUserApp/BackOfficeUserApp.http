@@ -1,0 +1,6 @@
+@BackOfficeUserApp_HostAddress = http://localhost:5063
+
+GET {{BackOfficeUserApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

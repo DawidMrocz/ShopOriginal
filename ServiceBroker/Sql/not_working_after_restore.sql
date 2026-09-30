@@ -1,0 +1,1 @@
+﻿ALTER AUTHORIZATION ON DATABASE::[restored db name] TO [sa];
